@@ -19,12 +19,12 @@ public class Chat {
     private static Map<WsContext, String> userUsernameMap = new ConcurrentHashMap<>();
     private static int nextUserNumber = 1; // Assign to username for next connecting user
 
-    private static final int PORT_NUMBER = 80;
+
 
     public static void main(String[] args) {
         Javalin app = Javalin.create(config -> {
             config.addStaticFiles("/public", Location.CLASSPATH);
-        }).start(PORT_NUMBER);
+        }).start(GoogleCloudPlatformHelper.getPort());
 
         app.ws("/chat", ws -> {
             ws.onConnect(ctx -> {
