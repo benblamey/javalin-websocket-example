@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 private val userUsernameMap = ConcurrentHashMap<WsContext, String>()
 private var nextUserNumber = 1 // Assign to username for next connecting user
+private var portNumber = 7070
 
 fun main(args: Array<String>) {
     Javalin.create {
@@ -31,7 +32,7 @@ fun main(args: Array<String>) {
                 broadcastMessage(userUsernameMap[ctx]!!, ctx.message())
             }
         }
-    }.start(7070)
+    }.start(portNumber)
 }
 
 // Sends a message from one user to all users, along with a list of current usernames

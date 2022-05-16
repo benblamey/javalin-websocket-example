@@ -1,6 +1,5 @@
 package app;
 
-import app.util.HerokuUtil;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.websocket.WsContext;
@@ -20,10 +19,12 @@ public class Chat {
     private static Map<WsContext, String> userUsernameMap = new ConcurrentHashMap<>();
     private static int nextUserNumber = 1; // Assign to username for next connecting user
 
+    private static final int PORT_NUMBER = 80;
+
     public static void main(String[] args) {
         Javalin app = Javalin.create(config -> {
             config.addStaticFiles("/public", Location.CLASSPATH);
-        }).start(HerokuUtil.getHerokuAssignedPort());
+        }).start(PORT_NUMBER);
 
         app.ws("/chat", ws -> {
             ws.onConnect(ctx -> {
